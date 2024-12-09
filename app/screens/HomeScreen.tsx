@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Text, FlatList, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, FlatList, TouchableOpacity, Image } from 'react-native';
 import SearchBar from '../../components/SearchBar';
 import MapViewComponent from '../../components/MapViewComponent';
 import { getCurrentLocation } from '../../utils/locationService';
@@ -57,22 +57,17 @@ const HomeScreen = () => {
 
   return (
     <View style={styles(isDarkTheme).container}>
-      {/* Theme Toggle Button */}
-      <TouchableOpacity onPress={toggleTheme} style={styles(isDarkTheme).themeToggleButton}>
-        <Ionicons
-          name={isDarkTheme ? 'sunny' : 'moon'}
-          size={28}
-          color={isDarkTheme ? '#ffcc00' : '#555'}
-        />
-      </TouchableOpacity>
-
       <FlatList
         data={recentLocations}
         keyExtractor={(item) => item.id.toString()}
         ListHeaderComponent={() => (
           <View>
             <View style={styles(isDarkTheme).logoContainer}>
-              <Text style={styles(isDarkTheme).logoText}>SafeStep</Text>
+              <Image
+                  source={require('../assets/Convergent_SafeStepLOGO.png')}
+                  style={styles(isDarkTheme).logoImage}
+                  resizeMode="contain"
+                />
             </View>
 
             <SearchBar onLocationSelect={handleLocationSelect} isDarkTheme={isDarkTheme} />
@@ -160,26 +155,12 @@ const styles = (isDarkTheme: boolean) => StyleSheet.create({
     backgroundColor: isDarkTheme ? '#0b1a34' : '#f5f5f5', // Super dark blue background for dark theme
     paddingTop: 60,
   },
-  themeToggleButton: {
-    position: 'absolute',
-    top: 50,
-    right: 15,
-    width: 80, 
-    height: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 25,
-    zIndex: 1,
-    backgroundColor: isDarkTheme ? '#1c2a48' : '#ddd',
-  },
   logoContainer: {
     alignItems: 'center',
-    marginVertical: 20,
   },
-  logoText: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: isDarkTheme ? '#ffffff' : '#000000',
+  logoImage: {
+    width: 175,
+    height: 80, // Adjust to fit logo dimensions
   },
   searchIcon: {
     marginLeft: 10,
